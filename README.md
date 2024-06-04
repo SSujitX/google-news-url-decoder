@@ -58,3 +58,7 @@ def decode_google_news_url(source_url):
 if __name__ == "__main__":
     source_url = 'https://news.google.com/rss/articles/CBMiLmh0dHBzOi8vd3d3LmJiYy5jb20vbmV3cy9hcnRpY2xlcy9jampqbnhkdjE4OG_SATJodHRwczovL3d3dy5iYmMuY29tL25ld3MvYXJ0aWNsZXMvY2pqam54ZHYxODhvLmFtcA?oc=5'
     print(decode_google_news_url(source_url))
+
+## Credits
+
+Original script by [huksley](https://gist.github.com/huksley/bc3cb046157a99cd9d1517b32f91a99e).
