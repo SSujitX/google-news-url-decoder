@@ -10,12 +10,7 @@ This Python script decodes Google News article URLs.
     cd google-news-url-decoder
     ```
 
-2. Install dependencies:
-    ```sh
-    pip install -r requirements.txt
-    ```
-
-3. Run the script:
+2. Run the script:
     ```sh
     python decode_google_news_url.py
     ```
