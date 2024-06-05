@@ -33,9 +33,9 @@ def decode_google_news_url(source_url):
     if (
         url.hostname == "news.google.com" and
         len(path) > 1 and
-        path[path.length - 2] == "articles"
+        path[len(path) - 2] == "articles"
     ):
-        base64_str = path[path.length - 1]
+        base64_str = path[len(path) - 1]
         decoded_bytes = base64.urlsafe_b64decode(base64_str + '==')
         decoded_str = decoded_bytes.decode('latin1')
 
@@ -62,3 +62,4 @@ def decode_google_news_url(source_url):
 if __name__ == "__main__":
     source_url = 'https://news.google.com/rss/articles/CBMiLmh0dHBzOi8vd3d3LmJiYy5jb20vbmV3cy9hcnRpY2xlcy9jampqbnhkdjE4OG_SATJodHRwczovL3d3dy5iYmMuY29tL25ld3MvYXJ0aWNsZXMvY2pqam54ZHYxODhvLmFtcA?oc=5'
     print(decode_google_news_url(source_url))
+
