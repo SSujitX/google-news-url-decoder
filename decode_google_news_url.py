@@ -7,9 +7,9 @@ def decode_google_news_url(source_url):
     if (
         url.hostname == "news.google.com" and
         len(path) > 1 and
-        path[path.length - 2] == "articles"
+        path[len(path) - 2] == "articles"
     ):
-        base64_str = path[path.length - 1]
+        base64_str = path[len(path) - 1]
         decoded_bytes = base64.urlsafe_b64decode(base64_str + '==')
         decoded_str = decoded_bytes.decode('latin1')
 
