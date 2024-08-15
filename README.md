@@ -2,6 +2,11 @@
 
 A Python package to decode Google News URLs.
 
+## Update
+
+Version 0.1.1: This update ensures that the package can now decode URLs that contain /read in addition to the previously supported /rss/articles format.
+
+
 ## Installation
 
 You can install this package using pip:
