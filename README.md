@@ -6,16 +6,16 @@ A Python package to decode Google News URLs.
 
 You can install this package using pip:
 
+```sh
+pip install googlenewsdecoder
+```
+
 ## Credits
 Original script by [huksley](https://gist.github.com/huksley/bc3cb046157a99cd9d1
 
 ## Usage
 
 Here is an example of how to use this package:
-
-```sh
-pip install googlenewsdecoder
-```
 
 ```python
 
