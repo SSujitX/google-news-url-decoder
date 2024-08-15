@@ -13,6 +13,7 @@ Original script by [huksley](https://gist.github.com/huksley/bc3cb046157a99cd9d1
 
 Here is an example of how to use this package:
 
+```bash
 **pip install googlenewsdecoder**
 
 ```bash
