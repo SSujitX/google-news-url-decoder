@@ -11,7 +11,7 @@ pip install googlenewsdecoder
 ```
 
 ## Credits
-Original script by [huksley](https://gist.github.com/huksley/bc3cb046157a99cd9d1
+Original script by [huksley](https://gist.github.com/huksley/bc3cb046157a99cd9d1)
 
 ## Usage
 
