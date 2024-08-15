@@ -13,6 +13,7 @@ __pycache__/
 
 # Ignore macOS system files
 .DS_Store
+.venv
 
 # Ignore build artifacts
 dist/

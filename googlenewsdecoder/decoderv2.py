@@ -40,7 +40,12 @@ def fetch_decoded_batch_execute(id):
 def decode_google_news_url(source_url):
     url = requests.utils.urlparse(source_url)
     path = url.path.split("/")
-    if url.hostname == "news.google.com" and len(path) > 1 and path[-2] == "articles":
+    if (
+        url.hostname == "news.google.com"
+        and len(path) > 1
+        and path[-2] == "articles"
+        or "read"
+    ):
         base64_str = path[-1]
         decoded_bytes = base64.urlsafe_b64decode(base64_str + "==")
         decoded_str = decoded_bytes.decode("latin1")
