@@ -12,7 +12,7 @@ setup(
     license="MIT",
     packages=find_packages(),
     install_requires=[
-        "requests",  # Add any dependencies here
+        "requests",
     ],
     classifiers=[
         "Programming Language :: Python :: 3",
