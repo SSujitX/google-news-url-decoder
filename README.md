@@ -8,7 +8,7 @@ Version 0.1.1: This update ensures that the package can now decode URLs that con
 
 ## Demo
 
-![Recording 2024-08-21 at 02 32 23](https://github.com/user-attachments/assets/ab3fcc54-2852-4487-9f6e-1654c142f8a9)
+![news](https://github.com/user-attachments/assets/96af4ef4-57a0-4be7-a4ef-f1acd10d0c84)
 
 
 ## Installation
