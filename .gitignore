@@ -1,11 +1,3 @@
-
-### 3. **.gitignore**
-
-The `.gitignore` file tells Git which files and directories to ignore when you push your code to a repository. This is important because you don't want to include unnecessary files like compiled Python files or build artifacts.
-
-**Example content for `.gitignore`:**
-
-```plaintext
 # Ignore Python bytecode
 __pycache__/
 *.pyc
