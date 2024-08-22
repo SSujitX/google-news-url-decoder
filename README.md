@@ -6,6 +6,10 @@ Google News Decoder is a Python package that can decode Google News links or Goo
 
 ## Update
 
+- Version 0.1.3:
+
+  - Small bug fix.
+
 - Version 0.1.2:
 
   - This update enhances error handling by returning a dictionary containing `status=False` and an appropriate error message when decoding fails.
