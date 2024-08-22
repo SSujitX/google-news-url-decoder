@@ -4,14 +4,15 @@ A Python package to decode Google News URLs.
 
 ## Update
 
-* Version 0.1.2:
-    * This update enhances error handling by returning a dictionary containing `status=False` and an appropriate error message when decoding fails.
-    * It ensures more robust and clear responses when processing URLs, improving the package's usability and debugging capabilities.
-    * decoderv3 is introduced in this version, which handles both `/rss/articles` and `/read` URLs, with comprehensive error reporting.
+- Version 0.1.2:
 
-* Version 0.1.1:
-    * This update ensures that the package can now decode URLs that contain `/read` in addition to the previously supported `/rss/articles` format.
-    * The functionality was primarily available in **`decoderv2`**.
+  - This update enhances error handling by returning a dictionary containing `status=False` and an appropriate error message when decoding fails.
+  - It ensures more robust and clear responses when processing URLs, improving the package's usability and debugging capabilities.
+  - decoderv3 is introduced in this version, which handles both `/rss/articles` and `/read` URLs, with comprehensive error reporting.
+
+- Version 0.1.1:
+  - This update ensures that the package can now decode URLs that contain `/read` in addition to the previously supported `/rss/articles` format.
+  - The functionality was primarily available in **`decoderv2`**.
 
 ## Demo
 
