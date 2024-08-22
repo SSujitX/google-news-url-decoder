@@ -6,6 +6,10 @@ Google News Decoder is a Python package that can decode Google News links or Goo
 
 ## Update
 
+- Version 0.1.4:
+
+  - Added support to batch requests for decoding multiple URLs.
+
 - Version 0.1.3:
 
   - Small bug fix.
@@ -104,30 +108,54 @@ if __name__ == "__main__":
     main()
 ```
 
+### Using decoderv4
+
+```python
+from googlenewsdecoder import decoderv4
+
+def main():
+
+    source_url = "https://news.google.com/read/CBMi2AFBVV95cUxPd1ZCc1loODVVNHpnbFFTVHFkTG94eWh1NWhTeE9yT1RyNTRXMVV2S1VIUFM3ZlVkVjl6UHh3RkJ0bXdaTVRlcHBjMWFWTkhvZWVuM3pBMEtEdlllRDBveGdIUm9GUnJ4ajd1YWR5cWs3VFA5V2dsZnY1RDZhVDdORHRSSE9EalF2TndWdlh4bkJOWU5UMTdIV2RCc285Q2p3MFA4WnpodUNqN1RNREMwa3d5T2ZHS0JlX0MySGZLc01kWDNtUEkzemtkbWhTZXdQTmdfU1JJaXY?hl=en-US&gl=US&ceid=US%3Aen"
+
+    decoded_urls = decoderv4([source_url])
+
+    # Output: decoded_urls - [{'status': True, 'url': 'https://healthdatamanagement.com/articles/empowering-the-quintuple-aim-embracing-an-essential-architecture/'}]
+    for decoded_url in decoded_urls:
+        if decoded_url.get("status"):
+            print("Decoded URL:", decoded_url["url"])
+        else:
+            print("Error:", decoded_url)
+    
+        # Output: Decoded URL: https://www.bbc.com/news/articles/cjjjnxdv188o
+        # If there's an error: Error: Invalid Google News URL
+        # Error: {'status': False, 'error': 'Header not found in response: )]}\'\n\n[["wrb.fr","Fbv4je",null,null,null,[3],"generic"],["di",20],["af.httprm",19,"-3096564523984356080",33]]'}
+
+if __name__ == "__main__":
+    main()
+```
+
 ### Using a for loop to decode multiple URLs
 
 ```python
-from googlenewsdecoder import decoderv3
+from googlenewsdecoder import decoderv4
 
 def main():
 
     source_urls = ["https://news.google.com/read/CBMilgFBVV95cUxOM0JJaFRwV2dqRDk5dEFpWmF1cC1IVml5WmVtbHZBRXBjZHBfaUsyalRpa1I3a2lKM1ZnZUI4MHhPU2sydi1nX3JrYU0xWjhLaHNfU0N6cEhOYVE2TEptRnRoZGVTU3kzZGJNQzc2aDZqYjJOR0xleTdsemdRVnJGLTVYTEhzWGw4Z19lR3AwR0F1bXlyZ0HSAYwBQVVfeXFMTXlLRDRJUFN5WHg3ZTI0X1F4SjN6bmFIck1IaGxFVVZyOFQxdk1JT3JUbl91SEhsU0NpQzkzRFdHSEtjVGhJNzY4ZTl6eXhESUQ3XzdWVTBGOGgwSmlXaVRmU3BsQlhPVjV4VWxET3FQVzJNbm5CUDlUOHJUTExaME5YbjZCX1NqOU9Ta3U?hl=en-US&gl=US&ceid=US%3Aen","https://news.google.com/read/CBMiiAFBVV95cUxQOXZLdC1hSzFqQVVLWGJVZzlPaDYyNjdWTURScV9BbVp0SWhFNzZpSWZxSzdhc0tKbVlHMU13NmZVOFdidFFkajZPTm9SRnlZMWFRZ01CVHh0dXU0TjNVMUxZNk9Ibk5DV3hrYlRiZ20zYkIzSFhMQVVpcTFPc00xQjhhcGV1aXM00gF_QVVfeXFMTmtFQXMwMlY1el9WY0VRWEh5YkxXbHF0SjFLQVByNk1xS3hpdnBuUDVxOGZCQXl1QVFXaUVpbk5lUGgwRVVVT25tZlVUVWZqQzc4cm5MSVlfYmVlclFTOUFmTHF4eTlfemhTa2JKeG14bmNabENkSmZaeHB4WnZ5dw?hl=en-US&gl=US&ceid=US%3Aen"]
 
-    for url in source_urls:
+    decoded_urls = decoderv4(source_urls)
 
-        decoded_url = decoderv3(url)
-
-        # Output: decoded_url - {'status': True, 'url': 'https://healthdatamanagement.com/articles/empowering-the-quintuple-aim-embracing-an-essential-architecture/'}
-
+    # Output: decoded_url - {'status': True, 'url': 'https://healthdatamanagement.com/articles/empowering-the-quintuple-aim-embracing-an-essential-architecture/'}
+    for decoded_url in decoded_urls:
         if decoded_url.get("status"):
             print("Decoded URL:", decoded_url["url"])
-
+    
             # Output: Decoded URL: https://www.bbc.com/news/articles/cjjjnxdv188o
         else:
             print("Error:", decoded_url["error"])
-
+    
             # If there's an error: Error: Invalid Google News URL
-
+    
             # Example Error: {'status': False, 'error': 'Header not found in response: )]}\'\n\n[["wrb.fr","Fbv4je",null,null,null,[3],"generic"],["di",20],["af.httprm",19,"-3096564523984356080",33]]'}
 
 if __name__ == "__main__":

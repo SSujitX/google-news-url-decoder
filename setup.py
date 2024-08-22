@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="googlenewsdecoder",
-    version="0.1.3",
+    version="0.1.4",
     description="A python package to decode Google News URLs.",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
