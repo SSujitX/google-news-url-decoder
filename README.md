@@ -74,7 +74,7 @@ def main():
     except Exception as e:
         print(f"Error occurred: {e}")
 
-    # Output: decoded_urls - [{'status': True, 'url': 'https://healthdatamanagement.com/articles/empowering-the-quintuple-aim-embracing-an-essential-architecture/'}]
+    # Output: decoded_urls - [{'status': True, 'decoded_url': 'https://healthdatamanagement.com/articles/empowering-the-quintuple-aim-embracing-an-essential-architecture/'}]
 
 if __name__ == "__main__":
     main()
