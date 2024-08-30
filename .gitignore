@@ -8,6 +8,7 @@ __pycache__/
 .venv
 .ignore
 .backup_readme.md
+.backup_readme2.md
 
 # Ignore build artifacts
 dist/

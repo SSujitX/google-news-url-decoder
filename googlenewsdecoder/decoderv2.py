@@ -73,10 +73,10 @@ def decode_google_news_url(source_url):
         return source_url
 
 
-# # Example usage
+# # # Example usage
 # if __name__ == "__main__":
-#     # source_url = "https://news.google.com/rss/articles/CBMiLmh0dHBzOi8vd3d3LmJiYy5jb20vbmV3cy9hcnRpY2xlcy9jampqbnhkdjE4OG_SATJodHRwczovL3d3dy5iYmMuY29tL25ld3MvYXJ0aWNsZXMvY2pqam54ZHYxODhvLmFtcA?oc=5"
-#     # source_url = "https://news.google.com/rss/articles/CBMiVkFVX3lxTE4zaGU2bTY2ZGkzdTRkSkJ0cFpsTGlDUjkxU2FBRURaTWU0c3QzVWZ1MHZZNkZ5Vzk1ZVBnTDFHY2R6ZmdCUkpUTUJsS1pqQTlCRzlzbHV3?oc=5"
-#     source_url = "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNMTRqdUZpNl9hQldXbGo2YVVLOGFQdkFLYldlMUxUVlNEaElsYjRRODVUMkF3R1RYdWxvT1NoVzdUYS0xSHg3eVdpTjdVODQ5cVJJLWt4dk9vZFBScVp2ZmpzQXZZRy1ncDM5c2tRbXBVVHVrQnpmMGVrQXNkQVItV3h4dVQ1V1BTbjhnM3k2ZUdPdnhVOFk1NmllNTZkdGJTbW9NX0k5U3E2Tkk?oc=5"
+#     source_url = "https://news.google.com/read/CBMiugFBVV95cUxOeFRIWFFSOUFQeTRmMXdzSnBxNHZoZ3Z1SUpDNGRVWjFzeU4zalRjSG1mMWtjT3Njc1FhQk1xeTFwQ3VrdVZnTUd2NlllN3dBOXdtT1ZkVEtOUWJYOHJMV1RrVzFlb016czh3YkltSGxzMWVHck9ES0VLOVJYU3E4LU12M3JtOTZPMGNSNnRrSXh0Ni1PUERoSWlNR2tCNzFIZm1OOWRqTXJRQWdCZzRvcVRmTFAyMDJTVHc?hl=en-US&gl=US&ceid=US%3Aen"
+#     #     # source_url = "https://news.google.com/rss/articles/CBMiVkFVX3lxTE4zaGU2bTY2ZGkzdTRkSkJ0cFpsTGlDUjkxU2FBRURaTWU0c3QzVWZ1MHZZNkZ5Vzk1ZVBnTDFHY2R6ZmdCUkpUTUJsS1pqQTlCRzlzbHV3?oc=5"
+#     #     source_url = "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNMTRqdUZpNl9hQldXbGo2YVVLOGFQdkFLYldlMUxUVlNEaElsYjRRODVUMkF3R1RYdWxvT1NoVzdUYS0xSHg3eVdpTjdVODQ5cVJJLWt4dk9vZFBScVp2ZmpzQXZZRy1ncDM5c2tRbXBVVHVrQnpmMGVrQXNkQVItV3h4dVQ1V1BTbjhnM3k2ZUdPdnhVOFk1NmllNTZkdGJTbW9NX0k5U3E2Tkk?oc=5"
 #     decoded_url = decode_google_news_url(source_url)
 #     print(decoded_url)
