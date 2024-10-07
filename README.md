@@ -1,9 +1,7 @@
 [![Downloads](https://static.pepy.tech/badge/googlenewsdecoder)](https://pepy.tech/project/googlenewsdecoder)
 [![PyPI version](https://badge.fury.io/py/googlenewsdecoder.svg)](https://badge.fury.io/py/googlenewsdecoder)
 [![Python Versions](https://img.shields.io/pypi/pyversions/googlenewsdecoder.svg)](https://pypi.org/project/googlenewsdecoder/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/SSujitX/google-news-url-decoder/python-package.yml)](https://github.com/SSujitX/google-news-url-decoder/actions)
-[![Code Quality](https://img.shields.io/codacy/grade/xxxxxxxxxx.svg)](https://app.codacy.com/gh/SSujitX/google-news-url-decoder/dashboard)
+
 
 
 # Google News Decoder
