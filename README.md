@@ -1,5 +1,3 @@
-[![Downloads](https://static.pepy.tech/badge/googlenewsdecoder/month)](https://pepy.tech/project/googlenewsdecoder)
-
 # Google News Decoder
 
 Google News Decoder is a Python package that can decode Google News links or Google News URLs to their original URLs. It is a simple tool that saves you time and effort. If you find it useful, please support the package by hitting the star on GitHub. Your support helps keep the project going!
@@ -10,29 +8,11 @@ Google News Decoder is a Python package that can decode Google News links or Goo
 
 - Version 0.1.6:
 
-  - Major Update: Introduced a new method called new_decoderv1.
-
-  - Deprecated: Previous decoders decoderv1 to decoderv4 are no longer functional.
-
-  - Added time delay between requests.
-
-- Version 0.1.4:
-
-  - Added support to batch requests for decoding multiple URLs.
-
-- Version 0.1.3:
-
-  - Small bug fix.
-
-- Version 0.1.2:
-
-  - This update enhances error handling by returning a dictionary containing `status=False` and an appropriate error message when decoding fails.
-  - It ensures more robust and clear responses when processing URLs, improving the package's usability and debugging capabilities.
-  - decoderv3 is introduced in this version, which handles both `/rss/articles` and `/read` URLs, with comprehensive error reporting.
-
-- Version 0.1.1:
-  - This update ensures that the package can now decode URLs that contain `/read` in addition to the previously supported `/rss/articles` format.
-  - The functionality was primarily available in **`decoderv2`**.
+  - Improved: Enhanced error handling with a fallback mechanism for decoding parameters.
+  - Refined: Optimized get_decoding_params to try decoding via https://news.google.com/articles first, falling back to https://news.google.com/rss/articles if needed
+  - Updated: Reduced occurrences of HTTP 429 (Too Many Requests).
+  - Removed: Logging functionality for a cleaner codebase.
+  - Fixed: Resolved time delay issue between requests.
 
 ## Demo
 

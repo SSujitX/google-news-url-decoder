@@ -1,7 +1,6 @@
 import json
 import time
 from urllib.parse import quote, urlparse
-
 import requests
 from selectolax.parser import HTMLParser
 
