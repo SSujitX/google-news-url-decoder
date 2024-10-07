@@ -1,23 +1,22 @@
 import json
+import time
 from urllib.parse import quote, urlparse
+
 import requests
 from selectolax.parser import HTMLParser
-import logging
-import time
-
-
-def setup_logging(log_file):
-    logging.basicConfig(
-        level=logging.ERROR,
-        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-        handlers=[logging.FileHandler(log_file), logging.StreamHandler()],
-    )
-
-
-setup_logging("google_news_new_decoderv1.log")
 
 
 def get_base64_str(source_url):
+    """
+    Extracts the base64 string from a Google News URL.
+
+    Parameters:
+        source_url (str): The Google News article URL.
+
+    Returns:
+        dict: A dictionary containing 'status' and 'base64_str' if successful,
+              otherwise 'status' and 'message'.
+    """
     try:
         url = urlparse(source_url)
         path = url.path.split("/")
@@ -26,58 +25,105 @@ def get_base64_str(source_url):
             and len(path) > 1
             and path[-2] in ["articles", "read"]
         ):
-            base64_str = path[-1]
-            return {"status": True, "base64_str": base64_str}
-        else:
-            return {"status": False, "message": "Invalid Google News URL format."}
+            return {"status": True, "base64_str": path[-1]}
+        return {"status": False, "message": "Invalid Google News URL format."}
     except Exception as e:
-        logging.error(f"get_base64_str error: {str(e)}")
         return {"status": False, "message": f"Error in get_base64_str: {str(e)}"}
 
 
 def get_decoding_params(base64_str):
-    try:
+    """
+    Fetches signature and timestamp required for decoding from Google News.
+    It first tries to use the URL format https://news.google.com/articles/{base64_str},
+    and falls back to https://news.google.com/rss/articles/{base64_str} if any error occurs.
 
-        response = requests.get(f"https://news.google.com/articles/{base64_str}")
+    Parameters:
+        base64_str (str): The base64 string extracted from the Google News URL.
+
+    Returns:
+        dict: A dictionary containing 'status', 'signature', 'timestamp', and 'base64_str' if successful,
+              otherwise 'status' and 'message'.
+    """
+    # Try the first URL format.
+    try:
+        url = f"https://news.google.com/articles/{base64_str}"
+        response = requests.get(url)
         response.raise_for_status()
 
         parser = HTMLParser(response.text)
-        datas = parser.css_first("c-wiz > div[jscontroller]")
-        if datas is None:
+        data_element = parser.css_first("c-wiz > div[jscontroller]")
+        if data_element is None:
             return {
                 "status": False,
-                "message": "Failed to fetch data attributes from Google News.",
+                "message": "Failed to fetch data attributes from Google News with the articles URL.",
             }
 
         return {
             "status": True,
-            "signature": datas.attributes.get("data-n-a-sg"),
-            "timestamp": datas.attributes.get("data-n-a-ts"),
+            "signature": data_element.attributes.get("data-n-a-sg"),
+            "timestamp": data_element.attributes.get("data-n-a-ts"),
             "base64_str": base64_str,
         }
+
     except requests.exceptions.RequestException as req_err:
-        logging.error(f"get_decoding_params Request error: {str(req_err)}")
+        # If an error occurs, try the fallback URL format.
+        try:
+            url = f"https://news.google.com/rss/articles/{base64_str}"
+            response = requests.get(url)
+            response.raise_for_status()
+
+            parser = HTMLParser(response.text)
+            data_element = parser.css_first("c-wiz > div[jscontroller]")
+            if data_element is None:
+                return {
+                    "status": False,
+                    "message": "Failed to fetch data attributes from Google News with the RSS URL.",
+                }
+
+            return {
+                "status": True,
+                "signature": data_element.attributes.get("data-n-a-sg"),
+                "timestamp": data_element.attributes.get("data-n-a-ts"),
+                "base64_str": base64_str,
+            }
+
+        except requests.exceptions.RequestException as rss_req_err:
+            return {
+                "status": False,
+                "message": f"Request error in get_decoding_params with RSS URL: {str(rss_req_err)}",
+            }
+    except Exception as e:
         return {
             "status": False,
-            "message": f"Request error in get_decoding_params: {str(req_err)}",
+            "message": f"Unexpected error in get_decoding_params: {str(e)}",
         }
-    except Exception as e:
-        logging.error(f"get_decoding_params error: {str(e)}")
-        return {"status": False, "message": f"Error in get_decoding_params: {str(e)}"}
 
 
 def decode_url(signature, timestamp, base64_str):
+    """
+    Decodes the Google News URL using the signature and timestamp.
+
+    Parameters:
+        signature (str): The signature required for decoding.
+        timestamp (str): The timestamp required for decoding.
+        base64_str (str): The base64 string from the Google News URL.
+
+    Returns:
+        dict: A dictionary containing 'status' and 'decoded_url' if successful,
+              otherwise 'status' and 'message'.
+    """
     try:
         url = "https://news.google.com/_/DotsSplashUi/data/batchexecute"
-
         payload = [
             "Fbv4je",
             f'["garturlreq",[["X","X",["X","X"],null,null,1,1,"US:en",null,1,null,null,null,null,null,0,1],"X","X",1,[1,1,1],1,1,null,0,0,null,0],"{base64_str}",{timestamp},"{signature}"]',
         ]
         headers = {
-            "content-type": "application/x-www-form-urlencoded;charset=UTF-8",
-            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
+            "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+            "(KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36",
         }
+
         response = requests.post(
             url, headers=headers, data=f"f.req={quote(json.dumps([[payload]]))}"
         )
@@ -88,46 +134,50 @@ def decode_url(signature, timestamp, base64_str):
 
         return {"status": True, "decoded_url": decoded_url}
     except requests.exceptions.RequestException as req_err:
-        logging.error(f"decode_url Request error: {str(req_err)}")
         return {
             "status": False,
             "message": f"Request error in decode_url: {str(req_err)}",
         }
     except (json.JSONDecodeError, IndexError, TypeError) as parse_err:
-        logging.error(f"decode_url Parsing error: {str(parse_err)}")
         return {
             "status": False,
             "message": f"Parsing error in decode_url: {str(parse_err)}",
         }
     except Exception as e:
-        logging.error(f"decode_url error: {str(e)}")
         return {"status": False, "message": f"Error in decode_url: {str(e)}"}
 
 
-def decode_google_news_url(source_url, interval=1):
-    try:
-        base64_str_response = get_base64_str(source_url)
-        if not base64_str_response["status"]:
-            return base64_str_response
+def decode_google_news_url(source_url, interval=None):
+    """
+    Decodes a Google News article URL into its original source URL.
 
-        decoding_params_response = get_decoding_params(
-            base64_str_response["base64_str"]
-        )
+    Parameters:
+        source_url (str): The Google News article URL.
+        interval (int, optional): Delay time in seconds before decoding to avoid rate limits.
+
+    Returns:
+        dict: A dictionary containing 'status' and 'decoded_url' if successful,
+              otherwise 'status' and 'message'.
+    """
+    try:
+        base64_response = get_base64_str(source_url)
+        if not base64_response["status"]:
+            return base64_response
+
+        decoding_params_response = get_decoding_params(base64_response["base64_str"])
         if not decoding_params_response["status"]:
             return decoding_params_response
 
-        signature = decoding_params_response["signature"]
-        timestamp = decoding_params_response["timestamp"]
-        base64_str = decoding_params_response["base64_str"]
+        decoded_url_response = decode_url(
+            decoding_params_response["signature"],
+            decoding_params_response["timestamp"],
+            decoding_params_response["base64_str"],
+        )
+        if interval:
+            time.sleep(interval)
 
-        decoded_url_response = decode_url(signature, timestamp, base64_str)
-        if not decoded_url_response["status"]:
-            return decoded_url_response
-
-        return {"status": True, "decoded_url": decoded_url_response["decoded_url"]}
-        time.sleep(interval)
+        return decoded_url_response
     except Exception as e:
-        logging.error(f"decode_google_news_url error: {str(e)}")
         return {
             "status": False,
             "message": f"Error in decode_google_news_url: {str(e)}",

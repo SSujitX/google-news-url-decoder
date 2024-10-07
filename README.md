@@ -6,31 +6,13 @@ Google News Decoder is a Python package that can decode Google News links or Goo
 
 ## Update
 
-- Version 0.1.5:
+- Version 0.1.6:
 
-  - Major Update: Introduced a new method called new_decoderv1.
-
-  - Deprecated: Previous decoders decoderv1 to decoderv4 are no longer functional.
-
-  - Added time delay between requests.
-
-- Version 0.1.4:
-
-  - Added support to batch requests for decoding multiple URLs.
-
-- Version 0.1.3:
-
-  - Small bug fix.
-
-- Version 0.1.2:
-
-  - This update enhances error handling by returning a dictionary containing `status=False` and an appropriate error message when decoding fails.
-  - It ensures more robust and clear responses when processing URLs, improving the package's usability and debugging capabilities.
-  - decoderv3 is introduced in this version, which handles both `/rss/articles` and `/read` URLs, with comprehensive error reporting.
-
-- Version 0.1.1:
-  - This update ensures that the package can now decode URLs that contain `/read` in addition to the previously supported `/rss/articles` format.
-  - The functionality was primarily available in **`decoderv2`**.
+  - Improved: Enhanced error handling with a fallback mechanism for decoding parameters.
+  - Refined: Optimized get_decoding_params to try decoding via https://news.google.com/articles first, falling back to https://news.google.com/rss/articles if needed
+  - Updated: Reduced occurrences of HTTP 429 (Too Many Requests).
+  - Removed: Logging functionality for a cleaner codebase.
+  - Fixed: Resolved time delay issue between requests.
 
 ## Demo
 
@@ -74,7 +56,7 @@ def main():
     except Exception as e:
         print(f"Error occurred: {e}")
 
-    # Output: decoded_urls - [{'status': True, 'url': 'https://healthdatamanagement.com/articles/empowering-the-quintuple-aim-embracing-an-essential-architecture/'}]
+    # Output: decoded_urls - [{'status': True, 'decoded_url': 'https://healthdatamanagement.com/articles/empowering-the-quintuple-aim-embracing-an-essential-architecture/'}]
 
 if __name__ == "__main__":
     main()
@@ -87,7 +69,7 @@ from googlenewsdecoder import new_decoderv1
 
 def main():
 
-    interval_time = 5 # default interval is 1 sec, if not specified
+    interval_time = 5 # default interval is None, if not specified
 
     source_urls = ["https://news.google.com/read/CBMilgFBVV95cUxOM0JJaFRwV2dqRDk5dEFpWmF1cC1IVml5WmVtbHZBRXBjZHBfaUsyalRpa1I3a2lKM1ZnZUI4MHhPU2sydi1nX3JrYU0xWjhLaHNfU0N6cEhOYVE2TEptRnRoZGVTU3kzZGJNQzc2aDZqYjJOR0xleTdsemdRVnJGLTVYTEhzWGw4Z19lR3AwR0F1bXlyZ0HSAYwBQVVfeXFMTXlLRDRJUFN5WHg3ZTI0X1F4SjN6bmFIck1IaGxFVVZyOFQxdk1JT3JUbl91SEhsU0NpQzkzRFdHSEtjVGhJNzY4ZTl6eXhESUQ3XzdWVTBGOGgwSmlXaVRmU3BsQlhPVjV4VWxET3FQVzJNbm5CUDlUOHJUTExaME5YbjZCX1NqOU9Ta3U?hl=en-US&gl=US&ceid=US%3Aen","https://news.google.com/read/CBMiiAFBVV95cUxQOXZLdC1hSzFqQVVLWGJVZzlPaDYyNjdWTURScV9BbVp0SWhFNzZpSWZxSzdhc0tKbVlHMU13NmZVOFdidFFkajZPTm9SRnlZMWFRZ01CVHh0dXU0TjNVMUxZNk9Ibk5DV3hrYlRiZ20zYkIzSFhMQVVpcTFPc00xQjhhcGV1aXM00gF_QVVfeXFMTmtFQXMwMlY1el9WY0VRWEh5YkxXbHF0SjFLQVByNk1xS3hpdnBuUDVxOGZCQXl1QVFXaUVpbk5lUGgwRVVVT25tZlVUVWZqQzc4cm5MSVlfYmVlclFTOUFmTHF4eTlfemhTa2JKeG14bmNabENkSmZaeHB4WnZ5dw?hl=en-US&gl=US&ceid=US%3Aen"]
 
