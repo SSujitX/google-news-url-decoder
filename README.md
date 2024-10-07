@@ -1,5 +1,5 @@
 [![Downloads](https://static.pepy.tech/badge/googlenewsdecoder)](https://pepy.tech/project/googlenewsdecoder)
-[![PyPI version](https://badge.fury.io/py/googlenewsdecoder.svg)](https://badge.fury.io/py/googlenewsdecoder)
+[![PyPI version](https://badge.fury.io/py/googlenewsdecoder.png)](https://badge.fury.io/py/googlenewsdecoder)
 [![Python Versions](https://img.shields.io/pypi/pyversions/googlenewsdecoder.svg)](https://pypi.org/project/googlenewsdecoder/)
 
 
