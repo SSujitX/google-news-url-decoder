@@ -2,6 +2,9 @@
 [![PyPI version](https://badge.fury.io/py/googlenewsdecoder.svg)](https://badge.fury.io/py/googlenewsdecoder)
 [![Python Versions](https://img.shields.io/pypi/pyversions/googlenewsdecoder.svg)](https://pypi.org/project/googlenewsdecoder/)
 
+![Downloads](https://static.pepy.tech/badge/googlenewsdecoder.png)
+[![PyPI version](https://badge.fury.io/py/googlenewsdecoder.png)](https://badge.fury.io/py/googlenewsdecoder)
+[![Python Versions](https://img.shields.io/pypi/pyversions/googlenewsdecoder.png)](https://pypi.org/project/googlenewsdecoder/)
 
 
 # Google News Decoder
