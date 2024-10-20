@@ -99,8 +99,6 @@ if __name__ == "__main__":
 
 Thank you for installing and using Google News Decoder! I hope this tool saves you time and effort when working with Google News URLs. If you find it useful, please consider hitting the star button on GitHub. If you’d like to contribute or fork the project, your support is greatly appreciated. Thank you for your support!
 
-![visitors](https://visitor-badge.laobi.icu/badge?page_id=SSujitX.google-news-url-decoder)
-
 ## Credits
 
 - Original script by [huksley](https://gist.github.com/huksley/)
