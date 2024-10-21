@@ -1,7 +1,8 @@
-[![Downloads](https://static.pepy.tech/badge/googlenewsdecoder)](https://pepy.tech/project/googlenewsdecoder)
 [![PyPI version](https://badge.fury.io/py/googlenewsdecoder.svg)](https://badge.fury.io/py/googlenewsdecoder)
 [![Python Versions](https://img.shields.io/badge/python-3.9-blue)](https://pypi.org/project/facebook-pages-scraper/)
-
+[![Downloads](https://static.pepy.tech/badge/googlenewsdecoder)](https://pepy.tech/project/googlenewsdecoder)
+[![Downloads](https://static.pepy.tech/badge/googlenewsdecoder/month)](https://pepy.tech/project/googlenewsdecoder)
+[![Downloads](https://static.pepy.tech/badge/googlenewsdecoder/week)](https://pepy.tech/project/googlenewsdecoder)
 
 # Google News Decoder
 
