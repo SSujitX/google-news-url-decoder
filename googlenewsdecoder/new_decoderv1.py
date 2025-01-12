@@ -47,7 +47,8 @@ def get_decoding_params(base64_str, proxy: str = None):
     # Try the first URL format.
     try:
         url = f"https://news.google.com/articles/{base64_str}"
-        response = requests.get(url, proxies={"http": proxy, "https": proxy})
+        proxies = {"http": proxy, "https": proxy} if proxy else None
+        response = requests.get(url, proxies=proxies)
         response.raise_for_status()
 
         parser = HTMLParser(response.text)
@@ -69,7 +70,8 @@ def get_decoding_params(base64_str, proxy: str = None):
         # If an error occurs, try the fallback URL format.
         try:
             url = f"https://news.google.com/rss/articles/{base64_str}"
-            response = requests.get(url, proxies={"http": proxy, "https": proxy})
+            proxies = {"http": proxy, "https": proxy} if proxy else None
+            response = requests.get(url, proxies=proxies)
             response.raise_for_status()
 
             parser = HTMLParser(response.text)
@@ -124,9 +126,9 @@ def decode_url(signature, timestamp, base64_str, proxy: str = None):
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
             "(KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36",
         }
-
+        proxies = {"http": proxy, "https": proxy} if proxy else None
         response = requests.post(
-            url, headers=headers, data=f"f.req={quote(json.dumps([[payload]]))}", proxies={"http": proxy, "https": proxy}
+            url, headers=headers, data=f"f.req={quote(json.dumps([[payload]]))}", proxies=proxies
         )
         response.raise_for_status()
 
