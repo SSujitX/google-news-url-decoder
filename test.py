@@ -317,7 +317,6 @@ if __name__ == "__main__":
         "https://news.google.com/read/CBMi5wFBVV95cUxPNFVrb3hqV2lkTFB4MGZtSWU0Yy15cGRUeDNiRE9INm5zOU8xSzlPNXgwN255by1NbE1vSmN2ajVYdmVhanFtdW1tWWtjdEdYY2MtTzlnR3BZbExVdlpPLTJUMUFjcmdORk5uUDAyWDZlanoyTDFLN1NvekFDcTM5c1BrZXhBUUhvdHg4enJaWTlEeWxXX1dpaDVreHBmN1VDZENKSUM1eFdBNlI3TmhGOTRWSVBqWW4yNXhiVGVUUlFfVkJ3UzFyMlhpN3otNjNoQVAzb3YyeVpVQzI2RnEyREduSnFXczA?hl=en-US&gl=US&ceid=US%3Aen",
         "https://news.google.com/read/CBMi0wFBVV95cUxPQ3g2ekY4N2s2c2k0NlZpOXdsUmhOYk5xSU4xLS1oNnlWSThnV2V6cVJLUjlvQXFraFc2UF9RZDRvWG9xMElVand5Z2xuNTBHMGlYMWFJcWlGWVMycnFucHNGbThWcWNYRE9uRGtUTHkwcWFtUzQ1TlNCeEduakNaLUFoQlE1QWdSREd1RkZPUEtoZkNSNkZCcFhvRnJvWWFGV2dyeVBYenBxT2QwVlh5QU9KbDFvR0NrR0UyOUVhU1czSTBmWkZRcjZUQTFqczU2T2s40gHYAUFVX3lxTE1peEY3TGU1bGlyM0wxZnI1UWM5Y1R5N2tQUE1EdkhOcTZleG93Y05lQkZaOVFuRWZIdTl0SUFGTGFiLXBJb1hCSTJQY2VKREdkNGpIUHk1SFpUMFlBMnpOV05BTWNpWWhoWjdHcUFTZTN6Q0MzV0FXYlBmZGNVbUV0UDBhRFo2OWx5eWxzb2FaUElTd2RqdUJwQS1WWVdsV0hlWUdUeUpZWXRZWklrTVQ3SlNZQ21SNWFJQTUyOXFtOGFYVllJQXJnZ0ZOdmJNUEJFdU9VX0NPbQ?hl=en-US&gl=US&ceid=US%3Aen",
     ]
-    proxy = "socks5://sauara2-zone-resi-region-us-st-california-city-losangeles:sauara2@4a5a8ac29e4bdd0d.ika.na.pyproxy.io:16666"
     for source_url in source_urls:
-        decoded_urls = gnewsdecoder(source_url, proxy=proxy)
+        decoded_urls = gnewsdecoder(source_url)
         print(decoded_urls)
