@@ -30,7 +30,7 @@ def get_base64_str(source_url):
         return {"status": False, "message": f"Error in get_base64_str: {str(e)}"}
 
 
-def get_decoding_params(base64_str, proxy: str = None):
+def get_decoding_params(base64_str):
     """
     Fetches signature and timestamp required for decoding from Google News.
     It first tries to use the URL format https://news.google.com/articles/{base64_str},
@@ -38,7 +38,6 @@ def get_decoding_params(base64_str, proxy: str = None):
 
     Parameters:
         base64_str (str): The base64 string extracted from the Google News URL.
-        proxy (str, optional): will use proxy for all requests if provided.
 
     Returns:
         dict: A dictionary containing 'status', 'signature', 'timestamp', and 'base64_str' if successful,
@@ -47,8 +46,7 @@ def get_decoding_params(base64_str, proxy: str = None):
     # Try the first URL format.
     try:
         url = f"https://news.google.com/articles/{base64_str}"
-        proxies = {"http": proxy, "https": proxy} if proxy else None
-        response = requests.get(url, proxies=proxies)
+        response = requests.get(url)
         response.raise_for_status()
 
         parser = HTMLParser(response.text)
@@ -70,8 +68,7 @@ def get_decoding_params(base64_str, proxy: str = None):
         # If an error occurs, try the fallback URL format.
         try:
             url = f"https://news.google.com/rss/articles/{base64_str}"
-            proxies = {"http": proxy, "https": proxy} if proxy else None
-            response = requests.get(url, proxies=proxies)
+            response = requests.get(url)
             response.raise_for_status()
 
             parser = HTMLParser(response.text)
@@ -101,7 +98,7 @@ def get_decoding_params(base64_str, proxy: str = None):
         }
 
 
-def decode_url(signature, timestamp, base64_str, proxy: str = None):
+def decode_url(signature, timestamp, base64_str):
     """
     Decodes the Google News URL using the signature and timestamp.
 
@@ -109,7 +106,6 @@ def decode_url(signature, timestamp, base64_str, proxy: str = None):
         signature (str): The signature required for decoding.
         timestamp (str): The timestamp required for decoding.
         base64_str (str): The base64 string from the Google News URL.
-        proxy (str, optional): will use proxy for all requests if provided.
 
     Returns:
         dict: A dictionary containing 'status' and 'decoded_url' if successful,
@@ -126,9 +122,9 @@ def decode_url(signature, timestamp, base64_str, proxy: str = None):
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
             "(KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36",
         }
-        proxies = {"http": proxy, "https": proxy} if proxy else None
+
         response = requests.post(
-            url, headers=headers, data=f"f.req={quote(json.dumps([[payload]]))}", proxies=proxies
+            url, headers=headers, data=f"f.req={quote(json.dumps([[payload]]))}"
         )
         response.raise_for_status()
 
@@ -150,14 +146,13 @@ def decode_url(signature, timestamp, base64_str, proxy: str = None):
         return {"status": False, "message": f"Error in decode_url: {str(e)}"}
 
 
-def decode_google_news_url(source_url, interval=None, proxy: str = None):
+def decode_google_news_url(source_url, interval=None):
     """
     Decodes a Google News article URL into its original source URL.
 
     Parameters:
         source_url (str): The Google News article URL.
         interval (int, optional): Delay time in seconds before decoding to avoid rate limits.
-        proxy (str, optional): will use proxy for all requests if provided.
 
     Returns:
         dict: A dictionary containing 'status' and 'decoded_url' if successful,
@@ -168,7 +163,7 @@ def decode_google_news_url(source_url, interval=None, proxy: str = None):
         if not base64_response["status"]:
             return base64_response
 
-        decoding_params_response = get_decoding_params(base64_response["base64_str"], proxy)
+        decoding_params_response = get_decoding_params(base64_response["base64_str"])
         if not decoding_params_response["status"]:
             return decoding_params_response
 
@@ -176,7 +171,6 @@ def decode_google_news_url(source_url, interval=None, proxy: str = None):
             decoding_params_response["signature"],
             decoding_params_response["timestamp"],
             decoding_params_response["base64_str"],
-            proxy=proxy,
         )
         if interval:
             time.sleep(interval)
@@ -195,7 +189,7 @@ def decode_google_news_url(source_url, interval=None, proxy: str = None):
 #     # source_url = "https://news.google.com/rss/articles/CBMiVkFVX3lxTE4zaGU2bTY2ZGkzdTRkSkJ0cFpsTGlDUjkxU2FBRURaTWU0c3QzVWZ1MHZZNkZ5Vzk1ZVBnTDFHY2R6ZmdCUkpUTUJsS1pqQTlCRzlzbHV3?oc=5"
 #     source_url = "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNMTRqdUZpNl9hQldXbGo2YVVLOGFQdkFLYldlMUxUVlNEaElsYjRRODVUMkF3R1RYdWxvT1NoVzdUYS0xSHg3eVdpTjdVODQ5cVJJLWt4dk9vZFBScVp2ZmpzQXZZRy1ncDM5c2tRbXBVVHVrQnpmMGVrQXNkQVItV3h4dVQ1V1BTbjhnM3k2ZUdPdnhVOFk1NmllNTZkdGJTbW9NX0k5U3E2Tkk?oc=5"
 
-#     decoded_url = decode_google_news_url(source_url, interval=5, proxy="http://user:pass@localhost:8080")
+#     decoded_url = decode_google_news_url(source_url, interval=5)
 #     if decoded_url.get("status"):
 #         print("Decoded URL:", decoded_url["decoded_url"])
 #     else:
