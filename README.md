@@ -3,7 +3,7 @@
 [![Downloads](https://static.pepy.tech/badge/googlenewsdecoder)](https://pepy.tech/project/googlenewsdecoder)
 [![Downloads](https://static.pepy.tech/badge/googlenewsdecoder/week)](https://pepy.tech/project/googlenewsdecoder)
 
-![](https://api.visitorbadge.io/api/VisitorHit?user=SSujitX&google-news-url-decoder&countColor=%237B1E7A)
+![Visitors](https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Fgithub.com%2FSSujitX%2Fgoogle-news-url-decoder&label=Total%20Visitors&countColor=%23697689&style=flat&labelStyle=upper)
 
 # Google News Decoder
 
