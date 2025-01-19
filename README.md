@@ -3,8 +3,6 @@
 [![Downloads](https://static.pepy.tech/badge/googlenewsdecoder)](https://pepy.tech/project/googlenewsdecoder)
 [![Downloads](https://static.pepy.tech/badge/googlenewsdecoder/week)](https://pepy.tech/project/googlenewsdecoder)
 
-![Visitors](https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Fgithub.com%2FSSujitX%2Fgoogle-news-url-decoder&label=Total%20Visitors&countColor=%23697689&style=flat&labelStyle=upper)
-
 # Google News Decoder
 
 Google News Decoder is a Python package that can decode Google News links or Google News URLs to their original URLs. It is a simple tool that saves you time and effort. If you find it useful, please support the package by hitting the star on GitHub. Your support helps keep the project going!
@@ -168,3 +166,5 @@ Thank you for installing and using Google News Decoder! I hope this tool saves y
 ## Credits
 
 - Original script by [huksley](https://gist.github.com/huksley/)
+
+![Visitors](https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Fgithub.com%2FSSujitX%2Fgoogle-news-url-decoder&countColor=%23263759&labelStyle=upper)
