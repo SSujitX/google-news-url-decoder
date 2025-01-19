@@ -1,7 +1,6 @@
 from setuptools import setup, find_packages
 import os
 
-
 def get_version():
     version_file = os.path.join(
         os.path.dirname(__file__), "googlenewsdecoder", "__version__.py"
