@@ -19,9 +19,14 @@ class GoogleDecoderAsync:
                                   - IP and Port: http://host:port
         """
         self.proxy = proxy
-
-    def initialize(self):
         self.client = httpx.AsyncClient(proxy=self.proxy, follow_redirects=True)
+
+    async def __aenter__(self):
+        return self
+
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        if self.client:
+            await self.client.aclose()
 
     def get_base64_str(self, source_url):
         """
@@ -176,7 +181,6 @@ class GoogleDecoderAsync:
                   otherwise 'status' and 'message'.
         """
         try:
-            self.initialize()
             base64_response = self.get_base64_str(source_url)
             if not base64_response["status"]:
                 return base64_response
@@ -200,23 +204,30 @@ class GoogleDecoderAsync:
                 "status": False,
                 "message": f"Error in decode_google_news_url: {str(e)}",
             }
-        finally:
-            await self.client.aclose()
+
+    async def close(self):
+        await self.client.aclose()
 
 
 # # Example usage
-# if __name__ == "__main__":
+if __name__ == "__main__":
 
-    # async def test_decode_uri():
-    #     decoder = GoogleDecoderAsync(proxy="http://user:pass@localhost:80")
+    async def test_decode_uri():
+        async with GoogleDecoderAsync(
+            proxy="http://user:pass@localhost:80"
+        ) as decoder:
+            source_url = "https://news.google.com/rss/articles/CBMiVkFVX3lxTE4zaGU2bTY2ZGkzdTRkSkJ0cFpsTGlDUjkxU2FBRURaTWU0c3QzVWZ1MHZZNkZ5Vzk1ZVBnTDFHY2R6ZmdCUkpUTUJsS1pqQTlCRzlzbHV3?oc=5"
+            source_url1 = "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNMTRqdUZpNl9hQldXbGo2YVVLOGFQdkFLYldlMUxUVlNEaElsYjRRODVUMkF3R1RYdWxvT1NoVzdUYS0xSHg3eVdpTjdVODQ5cVJJLWt4dk9vZFBScVp2ZmpzQXZZRy1ncDM5c2tRbXBVVHVrQnpmMGVrQXNkQVItV3h4dVQ1V1BTbjhnM3k2ZUdPdnhVOFk1NmllNTZkdGJTbW9NX0k5U3E2Tkk?oc=5"
+            results = await asyncio.gather(
+                *[
+                    decoder.decode_google_news_url(source_url),
+                    decoder.decode_google_news_url(source_url1),
+                  ]
+            )
+            for result in results:
+                if result.get("status"):
+                    print("Decoded URL:", result["decoded_url"])
+                else:
+                    print("Error:", result)
 
-    #     # source_url = "https://news.google.com/rss/articles/CBMiVkFVX3lxTE4zaGU2bTY2ZGkzdTRkSkJ0cFpsTGlDUjkxU2FBRURaTWU0c3QzVWZ1MHZZNkZ5Vzk1ZVBnTDFHY2R6ZmdCUkpUTUJsS1pqQTlCRzlzbHV3?oc=5"
-    #     source_url = "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNMTRqdUZpNl9hQldXbGo2YVVLOGFQdkFLYldlMUxUVlNEaElsYjRRODVUMkF3R1RYdWxvT1NoVzdUYS0xSHg3eVdpTjdVODQ5cVJJLWt4dk9vZFBScVp2ZmpzQXZZRy1ncDM5c2tRbXBVVHVrQnpmMGVrQXNkQVItV3h4dVQ1V1BTbjhnM3k2ZUdPdnhVOFk1NmllNTZkdGJTbW9NX0k5U3E2Tkk?oc=5"
-
-    #     decoded_url = await decoder.decode_google_news_url(source_url)
-    #     if decoded_url.get("status"):
-    #         print("Decoded URL:", decoded_url["decoded_url"])
-    #     else:
-    #         print("Error:", decoded_url)
-
-    # asyncio.run(test_decode_uri())
+    asyncio.run(test_decode_uri())
