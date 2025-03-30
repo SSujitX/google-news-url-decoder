@@ -28,8 +28,7 @@ def gnewsdecoder(source_url, interval=None, proxy=None):
 async def gnews_decoder_async(source_url, interval=None, proxy=None):
     """
     Decodes a Google News article URL into its original source URL Asynchronously.
-    This is a convenience function that uses the GoogleDecoderAsync class internally using aiohttp library to do request asynchronously.
-
+    This is a convenience function that uses the GoogleDecoderAsync class internally using httpx library to do request asynchronously.
     Parameters:
         source_url (str): The Google News article URL.
         interval (int, optional): Delay time in seconds before decoding to avoid rate limits.
