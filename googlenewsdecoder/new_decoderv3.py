@@ -196,8 +196,7 @@ class GoogleDecoderAsync:
                 decoding_params_response["base64_str"],
             )
             if interval:
-                time.sleep(interval)
-
+                await asyncio.sleep(interval)
             return decoded_url_response
         except Exception as e:
             return {
