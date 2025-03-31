@@ -5,3 +5,4 @@ PySocks==1.7.1
 requests==2.32.3
 selectolax==0.3.27
 urllib3==2.3.0
+httpx==0.28.1
