@@ -1,3 +1,4 @@
+from typing import Optional
 from .decoderv1 import decode_google_news_url as decoderv1
 from .decoderv2 import decode_google_news_url as decoderv2
 from .decoderv3 import decode_google_news_url as decoderv3
@@ -8,7 +9,7 @@ from .new_decoderv3 import GoogleDecoderAsync
 from .__version__ import __version__
 
 
-def gnewsdecoder(source_url, interval=None, proxy=None):
+def gnewsdecoder(source_url: str, interval: Optional[int] = None, proxy:  Optional[str] = None) -> dict:
     """
     Decodes a Google News article URL into its original source URL.
     This is a convenience function that uses the GoogleDecoder class internally.
@@ -25,7 +26,7 @@ def gnewsdecoder(source_url, interval=None, proxy=None):
     decoder = GoogleDecoder(proxy=proxy)
     return decoder.decode_google_news_url(source_url, interval=interval)
 
-async def gnews_decoder_async(source_url, interval=None, proxy=None):
+async def gnews_decoder_async(source_url: str, interval: Optional[int] = None, proxy:  Optional[str] = None) -> dict:
     """
     Decodes a Google News article URL into its original source URL Asynchronously.
     This is a convenience function that uses the GoogleDecoderAsync class internally using httpx library to do request asynchronously.

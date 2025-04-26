@@ -1,13 +1,14 @@
 import asyncio
 import json
 import time
+from typing import Optional
 from urllib.parse import quote, urlparse
 import httpx
 from selectolax.parser import HTMLParser
 
 
 class GoogleDecoderAsync:
-    def __init__(self, proxy=None):
+    def __init__(self, proxy: Optional[str] = None):
         """
         Initialize the GoogleDecoder class.
 
@@ -28,7 +29,7 @@ class GoogleDecoderAsync:
         if self.client:
             await self.client.aclose()
 
-    def get_base64_str(self, source_url):
+    def get_base64_str(self, source_url: str) -> dict:
         """
         Extracts the base64 string from a Google News URL.
 
@@ -52,7 +53,7 @@ class GoogleDecoderAsync:
         except Exception as e:
             return {"status": False, "message": f"Error in get_base64_str: {str(e)}"}
 
-    async def get_decoding_params(self, base64_str):
+    async def get_decoding_params(self, base64_str: str) -> dict:
         """
         Fetches signature and timestamp required for decoding from Google News.
         It first tries to use the URL format https://news.google.com/articles/{base64_str},
@@ -119,7 +120,7 @@ class GoogleDecoderAsync:
                 "message": f"Unexpected error in get_decoding_params: {str(e)}",
             }
 
-    async def decode_url(self, signature, timestamp, base64_str):
+    async def decode_url(self, signature: str, timestamp: str, base64_str: str) -> dict:
         """
         Decodes the Google News URL using the signature and timestamp.
 
@@ -168,7 +169,7 @@ class GoogleDecoderAsync:
         except Exception as e:
             return {"status": False, "message": f"Error in decode_url: {str(e)}"}
 
-    async def decode_google_news_url(self, source_url, interval=None):
+    async def decode_google_news_url(self, source_url: str, interval: Optional[int] = None) -> dict:
         """
         Decodes a Google News article URL into its original source URL.
 

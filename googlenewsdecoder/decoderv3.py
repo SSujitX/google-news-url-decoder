@@ -2,7 +2,7 @@ import requests
 import base64
 
 
-def fetch_decoded_batch_execute(id):
+def fetch_decoded_batch_execute(id: str) -> dict:
     try:
         s = (
             '[[["Fbv4je","[\\"garturlreq\\",[[\\"en-US\\",\\"US\\",[\\"FINANCE_TOP_INDICES\\",\\"WEB_TEST_1_0_0\\"],'
@@ -40,7 +40,7 @@ def fetch_decoded_batch_execute(id):
         return {"status": False, "error": str(e)}
 
 
-def decode_google_news_url(source_url):
+def decode_google_news_url(source_url: str) -> dict:
     try:
         url = requests.utils.urlparse(source_url)
         path = url.path.split("/")

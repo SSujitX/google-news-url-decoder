@@ -1,12 +1,13 @@
 import json
 import time
+from typing import Optional
 from urllib.parse import quote, urlparse
 import requests
 from selectolax.parser import HTMLParser
 
 
 class GoogleDecoder:
-    def __init__(self, proxy=None):
+    def __init__(self, proxy: Optional[str] = None):
         """
         Initialize the GoogleDecoder class.
 
@@ -20,7 +21,7 @@ class GoogleDecoder:
         self.proxy = proxy
         self.proxies = {"http": proxy, "https": proxy} if proxy else None
 
-    def get_base64_str(self, source_url):
+    def get_base64_str(self, source_url: str) -> dict:
         """
         Extracts the base64 string from a Google News URL.
 
@@ -44,7 +45,7 @@ class GoogleDecoder:
         except Exception as e:
             return {"status": False, "message": f"Error in get_base64_str: {str(e)}"}
 
-    def get_decoding_params(self, base64_str):
+    def get_decoding_params(self, base64_str: str) -> dict:
         """
         Fetches signature and timestamp required for decoding from Google News.
         It first tries to use the URL format https://news.google.com/articles/{base64_str},
@@ -111,7 +112,7 @@ class GoogleDecoder:
                 "message": f"Unexpected error in get_decoding_params: {str(e)}",
             }
 
-    def decode_url(self, signature, timestamp, base64_str):
+    def decode_url(self, signature: str, timestamp: str, base64_str: str) -> dict:
         """
         Decodes the Google News URL using the signature and timestamp.
 
@@ -161,7 +162,7 @@ class GoogleDecoder:
         except Exception as e:
             return {"status": False, "message": f"Error in decode_url: {str(e)}"}
 
-    def decode_google_news_url(self, source_url, interval=None):
+    def decode_google_news_url(self, source_url: str, interval: Optional[int] = None) -> dict:
         """
         Decodes a Google News article URL into its original source URL.
 

@@ -2,7 +2,7 @@ import requests
 import base64
 
 
-def fetch_decoded_batch_execute(id):
+def fetch_decoded_batch_execute(id: str) -> str:
     s = (
         '[[["Fbv4je","[\\"garturlreq\\",[[\\"en-US\\",\\"US\\",[\\"FINANCE_TOP_INDICES\\",\\"WEB_TEST_1_0_0\\"],'
         'null,null,1,1,\\"US:en\\",null,180,null,null,null,null,null,0,null,null,[1608992183,723341000]],'
@@ -37,7 +37,7 @@ def fetch_decoded_batch_execute(id):
     return url
 
 
-def decode_google_news_url(source_url):
+def decode_google_news_url(source_url: str) -> str:
     url = requests.utils.urlparse(source_url)
     path = url.path.split("/")
     if (

@@ -1,11 +1,12 @@
 import json
 import time
+from typing import Optional
 from urllib.parse import quote, urlparse
 import requests
 from selectolax.parser import HTMLParser
 
 
-def get_base64_str(source_url):
+def get_base64_str(source_url: str) -> dict:
     """
     Extracts the base64 string from a Google News URL.
 
@@ -30,7 +31,7 @@ def get_base64_str(source_url):
         return {"status": False, "message": f"Error in get_base64_str: {str(e)}"}
 
 
-def get_decoding_params(base64_str):
+def get_decoding_params(base64_str: str) -> dict:
     """
     Fetches signature and timestamp required for decoding from Google News.
     It first tries to use the URL format https://news.google.com/articles/{base64_str},
@@ -98,7 +99,7 @@ def get_decoding_params(base64_str):
         }
 
 
-def decode_url(signature, timestamp, base64_str):
+def decode_url(signature: str, timestamp: str, base64_str: str) -> dict:
     """
     Decodes the Google News URL using the signature and timestamp.
 
@@ -146,7 +147,7 @@ def decode_url(signature, timestamp, base64_str):
         return {"status": False, "message": f"Error in decode_url: {str(e)}"}
 
 
-def decode_google_news_url(source_url, interval=None):
+def decode_google_news_url(source_url: str, interval: Optional[int] = None) -> dict:
     """
     Decodes a Google News article URL into its original source URL.
 
