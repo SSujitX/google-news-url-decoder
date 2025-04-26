@@ -2,7 +2,7 @@ import requests
 import base64
 
 
-def fetch_decoded_batch_execute(ids):
+def fetch_decoded_batch_execute(ids: list) -> str:
     try:
         envelopes = []
         for i, id in enumerate(ids, start=1):
@@ -46,7 +46,7 @@ def fetch_decoded_batch_execute(ids):
         return {"status": False, "error": str(e)}
 
 
-def decode_google_news_url(source_urls):
+def decode_google_news_url(source_urls: list) -> list:
     results = []
     batch_ids = []
     id_to_index_map = {}

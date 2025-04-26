@@ -2,7 +2,7 @@ import base64
 from urllib.parse import urlparse
 
 
-def decode_google_news_url(source_url):
+def decode_google_news_url(source_url: str) -> str:
     url = urlparse(source_url)
     path = url.path.split("/")
     if (
