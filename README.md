@@ -167,4 +167,8 @@ Thank you for installing and using Google News Decoder! I hope this tool saves y
 
 - Original script by [huksley](https://gist.github.com/huksley/)
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/chart?repos=SSujitX/google-news-url-decoder&type=date&legend=top-left&sealed_token=klBsl0qWHyFzyLVTz2my834KZ0EyA_IpgZBtTGoLPBVom69GLKRrRBMJVQ19wtHUjElTizag2kr3Bl0_BhyVeuGHJtunfu-12ftkOVPzK4--86MLY7OaG09Mws3HPqunNwwdrfbq6-4RFCkpTn2YCPLrwGNoBAaGdKWuGjM7Y2e2y3po1FucXQ2J9qDF)](https://www.star-history.com/?repos=SSujitX%2Fgoogle-news-url-decoder&type=date&legend=top-left)
+
 ![Visitors](https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Fgithub.com%2FSSujitX%2Fgoogle-news-url-decoder&countColor=%23263759&labelStyle=upper)
