@@ -5,9 +5,11 @@ from urllib.parse import quote, urlparse
 import requests
 from selectolax.parser import HTMLParser
 
+from .constants import DEFAULT_TIMEOUT
+
 
 class GoogleDecoder:
-    def __init__(self, proxy: Optional[str] = None):
+    def __init__(self, proxy: Optional[str] = None, timeout: Optional[float] = DEFAULT_TIMEOUT):
         """
         Initialize the GoogleDecoder class.
 
@@ -17,9 +19,12 @@ class GoogleDecoder:
                                   - HTTP/HTTPS: http://user:pass@host:port
                                   - SOCKS5: socks5://user:pass@host:port
                                   - IP and Port: http://host:port
+            timeout (float, optional): Seconds any single request may take before it is
+                                  abandoned. None waits indefinitely.
         """
         self.proxy = proxy
         self.proxies = {"http": proxy, "https": proxy} if proxy else None
+        self.timeout = timeout
 
     def get_base64_str(self, source_url: str) -> dict:
         """
@@ -61,7 +66,7 @@ class GoogleDecoder:
         # Try the first URL format.
         try:
             url = f"https://news.google.com/articles/{base64_str}"
-            response = requests.get(url, proxies=self.proxies)
+            response = requests.get(url, proxies=self.proxies, timeout=self.timeout)
             response.raise_for_status()
 
             parser = HTMLParser(response.text)
@@ -83,7 +88,7 @@ class GoogleDecoder:
             # If an error occurs, try the fallback URL format.
             try:
                 url = f"https://news.google.com/rss/articles/{base64_str}"
-                response = requests.get(url, proxies=self.proxies)
+                response = requests.get(url, proxies=self.proxies, timeout=self.timeout)
                 response.raise_for_status()
 
                 parser = HTMLParser(response.text)
@@ -142,6 +147,7 @@ class GoogleDecoder:
                 headers=headers,
                 data=f"f.req={quote(json.dumps([[payload]]))}",
                 proxies=self.proxies,
+                timeout=self.timeout,
             )
             response.raise_for_status()
 

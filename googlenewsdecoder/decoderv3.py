@@ -1,8 +1,12 @@
-import requests
 import base64
+from typing import Optional
+
+import requests
+
+from .constants import DEFAULT_TIMEOUT
 
 
-def fetch_decoded_batch_execute(id: str) -> dict:
+def fetch_decoded_batch_execute(id: str, timeout: Optional[float] = DEFAULT_TIMEOUT) -> dict:
     try:
         s = (
             '[[["Fbv4je","[\\"garturlreq\\",[[\\"en-US\\",\\"US\\",[\\"FINANCE_TOP_INDICES\\",\\"WEB_TEST_1_0_0\\"],'
@@ -21,6 +25,7 @@ def fetch_decoded_batch_execute(id: str) -> dict:
             "https://news.google.com/_/DotsSplashUi/data/batchexecute?rpcids=Fbv4je",
             headers=headers,
             data={"f.req": s},
+            timeout=timeout,
         )
 
         if response.status_code != 200:
@@ -40,7 +45,9 @@ def fetch_decoded_batch_execute(id: str) -> dict:
         return {"status": False, "error": str(e)}
 
 
-def decode_google_news_url(source_url: str) -> dict:
+def decode_google_news_url(
+    source_url: str, timeout: Optional[float] = DEFAULT_TIMEOUT
+) -> dict:
     try:
         url = requests.utils.urlparse(source_url)
         path = url.path.split("/")
@@ -70,7 +77,7 @@ def decode_google_news_url(source_url: str) -> dict:
                 decoded_str = decoded_str[1 : length + 1]
 
             if decoded_str.startswith("AU_yqL"):
-                return fetch_decoded_batch_execute(base64_str)
+                return fetch_decoded_batch_execute(base64_str, timeout=timeout)
 
             return {"status": True, "url": decoded_str}
         else:

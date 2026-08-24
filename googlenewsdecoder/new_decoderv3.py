@@ -6,9 +6,16 @@ from urllib.parse import quote, urlparse
 import httpx
 from selectolax.parser import HTMLParser
 
+from .constants import DEFAULT_TIMEOUT, DEFAULT_USER_AGENT
+
 
 class GoogleDecoderAsync:
-    def __init__(self, proxy: Optional[str] = None):
+    def __init__(
+        self,
+        proxy: Optional[str] = None,
+        timeout: Optional[float] = DEFAULT_TIMEOUT,
+        user_agent: str = DEFAULT_USER_AGENT,
+    ):
         """
         Initialize the GoogleDecoder class.
 
@@ -18,9 +25,20 @@ class GoogleDecoderAsync:
                                   - HTTP/HTTPS: http://user:pass@host:port
                                   - SOCKS5: socks5://user:pass@host:port
                                   - IP and Port: http://host:port
+            timeout (float, optional): Seconds any single request may take before it is
+                                  abandoned. None waits indefinitely.
+            user_agent (str, optional): Sent on every request. Google answers httpx's own
+                                  default with an interstitial that carries nothing to
+                                  decode — see constants.DEFAULT_USER_AGENT.
         """
         self.proxy = proxy
-        self.client = httpx.AsyncClient(proxy=self.proxy, follow_redirects=True)
+        self.timeout = timeout
+        self.client = httpx.AsyncClient(
+            proxy=self.proxy,
+            follow_redirects=True,
+            timeout=timeout,
+            headers={"User-Agent": user_agent},
+        )
 
     async def __aenter__(self):
         return self

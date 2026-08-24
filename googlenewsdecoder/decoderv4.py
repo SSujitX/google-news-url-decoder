@@ -1,8 +1,12 @@
-import requests
 import base64
+from typing import Optional
+
+import requests
+
+from .constants import DEFAULT_TIMEOUT
 
 
-def fetch_decoded_batch_execute(ids: list) -> str:
+def fetch_decoded_batch_execute(ids: list, timeout: Optional[float] = DEFAULT_TIMEOUT) -> str:
     try:
         envelopes = []
         for i, id in enumerate(ids, start=1):
@@ -24,6 +28,7 @@ def fetch_decoded_batch_execute(ids: list) -> str:
             url="https://news.google.com/_/DotsSplashUi/data/batchexecute?rpcids=Fbv4je",
             headers=headers,
             data={"f.req": s},
+            timeout=timeout,
         )
 
         if response.status_code != 200:
@@ -46,7 +51,9 @@ def fetch_decoded_batch_execute(ids: list) -> str:
         return {"status": False, "error": str(e)}
 
 
-def decode_google_news_url(source_urls: list) -> list:
+def decode_google_news_url(
+    source_urls: list, timeout: Optional[float] = DEFAULT_TIMEOUT
+) -> list:
     results = []
     batch_ids = []
     id_to_index_map = {}
@@ -88,7 +95,7 @@ def decode_google_news_url(source_urls: list) -> list:
                 results.append({"status": False, "error": "Invalid Google News URL"})
 
         if batch_ids:
-            decoded_result = fetch_decoded_batch_execute(batch_ids)
+            decoded_result = fetch_decoded_batch_execute(batch_ids, timeout=timeout)
             if decoded_result["status"]:
                 for id, url in zip(batch_ids, decoded_result["urls"]):
                     index = id_to_index_map[id]

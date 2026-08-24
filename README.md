@@ -79,6 +79,19 @@ if __name__ == "__main__":
     main()
 ```
 
+### Request timeouts
+
+Every request carries a timeout, `10.0` seconds by default. Pass `timeout=` to override it,
+or `timeout=None` to wait indefinitely (the pre-0.1.8 behaviour). `requests` and `httpx`
+apply it per connect/read operation, so it bounds a stalled socket rather than the whole
+call — wrap `gnews_decoder_async` in `asyncio.wait_for` if you need a hard overall deadline.
+
+```python
+from googlenewsdecoder import gnewsdecoder
+
+decoded_url = gnewsdecoder(source_url, interval=1, timeout=5.0)
+```
+
 ### Using gnewsdecoder with proxy
 
 ```python
