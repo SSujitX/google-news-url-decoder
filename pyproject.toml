@@ -1,6 +1,6 @@
 [project]
 name = "googlenewsdecoder"
-version = "1.0.0"
+version = "0.2.0"
 description = "A Python package to decode Google News URLs to their original sources."
 readme = "README.md"
 license = "MIT"
