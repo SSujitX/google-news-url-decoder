@@ -16,8 +16,9 @@ Google News Decoder is a Python package that can decode Google News links or Goo
 Use **googlenewsdecoder** to decode a Google News URL, extract the original article URL from `news.google.com/read/`, `/articles/`, or Google News RSS `/rss/articles/` feeds, and resolve the Google News redirect to the publisher source. Works with `pip install googlenewsdecoder` or `uv add googlenewsdecoder` on Python 3.11+.
 
 <details>
-<summary><sub>Looking for a sponsor</sub></summary>
-<sub><a href="mailto:ssujitxx@gmail.com">ssujitxx@gmail.com</a></sub>
+<summary><strong>Looking for a sponsor</strong></summary>
+
+<a href="mailto:ssujitxx@gmail.com">ssujitxx@gmail.com</a>
 </details>
 
 ## Demo
