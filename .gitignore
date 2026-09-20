@@ -13,4 +13,5 @@ build/
 
 *.egg-info/
 
-test.py
+.cursor/
+.pytest_cache/
