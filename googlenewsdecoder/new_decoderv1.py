@@ -5,6 +5,8 @@ from urllib.parse import quote, urlparse
 import requests
 from selectolax.parser import HTMLParser
 
+from .constants import DEFAULT_TIMEOUT
+
 
 def get_base64_str(source_url: str) -> dict:
     """
@@ -31,7 +33,7 @@ def get_base64_str(source_url: str) -> dict:
         return {"status": False, "message": f"Error in get_base64_str: {str(e)}"}
 
 
-def get_decoding_params(base64_str: str) -> dict:
+def get_decoding_params(base64_str: str, timeout: Optional[float] = DEFAULT_TIMEOUT) -> dict:
     """
     Fetches signature and timestamp required for decoding from Google News.
     It first tries to use the URL format https://news.google.com/articles/{base64_str},
@@ -47,7 +49,7 @@ def get_decoding_params(base64_str: str) -> dict:
     # Try the first URL format.
     try:
         url = f"https://news.google.com/articles/{base64_str}"
-        response = requests.get(url)
+        response = requests.get(url, timeout=timeout)
         response.raise_for_status()
 
         parser = HTMLParser(response.text)
@@ -69,7 +71,7 @@ def get_decoding_params(base64_str: str) -> dict:
         # If an error occurs, try the fallback URL format.
         try:
             url = f"https://news.google.com/rss/articles/{base64_str}"
-            response = requests.get(url)
+            response = requests.get(url, timeout=timeout)
             response.raise_for_status()
 
             parser = HTMLParser(response.text)
@@ -99,7 +101,9 @@ def get_decoding_params(base64_str: str) -> dict:
         }
 
 
-def decode_url(signature: str, timestamp: str, base64_str: str) -> dict:
+def decode_url(
+    signature: str, timestamp: str, base64_str: str, timeout: Optional[float] = DEFAULT_TIMEOUT
+) -> dict:
     """
     Decodes the Google News URL using the signature and timestamp.
 
@@ -125,7 +129,10 @@ def decode_url(signature: str, timestamp: str, base64_str: str) -> dict:
         }
 
         response = requests.post(
-            url, headers=headers, data=f"f.req={quote(json.dumps([[payload]]))}"
+            url,
+            headers=headers,
+            data=f"f.req={quote(json.dumps([[payload]]))}",
+            timeout=timeout,
         )
         response.raise_for_status()
 
@@ -147,7 +154,11 @@ def decode_url(signature: str, timestamp: str, base64_str: str) -> dict:
         return {"status": False, "message": f"Error in decode_url: {str(e)}"}
 
 
-def decode_google_news_url(source_url: str, interval: Optional[int] = None) -> dict:
+def decode_google_news_url(
+    source_url: str,
+    interval: Optional[int] = None,
+    timeout: Optional[float] = DEFAULT_TIMEOUT,
+) -> dict:
     """
     Decodes a Google News article URL into its original source URL.
 
@@ -164,7 +175,9 @@ def decode_google_news_url(source_url: str, interval: Optional[int] = None) -> d
         if not base64_response["status"]:
             return base64_response
 
-        decoding_params_response = get_decoding_params(base64_response["base64_str"])
+        decoding_params_response = get_decoding_params(
+            base64_response["base64_str"], timeout=timeout
+        )
         if not decoding_params_response["status"]:
             return decoding_params_response
 
@@ -172,6 +185,7 @@ def decode_google_news_url(source_url: str, interval: Optional[int] = None) -> d
             decoding_params_response["signature"],
             decoding_params_response["timestamp"],
             decoding_params_response["base64_str"],
+            timeout=timeout,
         )
         if interval:
             time.sleep(interval)
