@@ -35,7 +35,7 @@ wheels = [
 
 [[package]]
 name = "googlenewsdecoder"
-version = "1.0.0"
+version = "0.2.1"
 source = { editable = "." }
 dependencies = [
     { name = "httpx", extra = ["http2", "socks"] },
