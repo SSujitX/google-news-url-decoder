@@ -1,3 +1,4 @@
+# Filename must stay python-publish.yml — PyPI trusted publishing matches this path.
 # Actions → Release → Run workflow → bump = current | patch | minor | major
 #
 # Version lives in pyproject.toml only. Notes come from conventional commits
