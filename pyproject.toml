@@ -1,0 +1,55 @@
+[project]
+name = "googlenewsdecoder"
+version = "0.1.7"
+description = "A Python package to decode Google News URLs to their original sources."
+readme = "README.md"
+license = "MIT"
+authors = [
+    { name = "SSujitX", email = "ssujitxx@gmail.com" }
+]
+requires-python = ">=3.11"
+keywords = [
+    "google",
+    "news",
+    "decoder",
+    "google-news",
+    "google-news-url",
+    "url-decoder",
+    "rss",
+    "gnews",
+    "original-url",
+    "redirect",
+    "google-news-url-decoder",
+    "googlenewsdecoder",
+    "google-news-decoder",
+    "google-decode",
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "httpx[http2,socks]>=0.28.1",
+    "selectolax>=0.4.12",
+]
+
+[project.urls]
+Homepage = "https://github.com/SSujitX/google-news-url-decoder"
+Documentation = "https://github.com/SSujitX/google-news-url-decoder#readme"
+Issues = "https://github.com/SSujitX/google-news-url-decoder/issues"
+Source = "https://github.com/SSujitX/google-news-url-decoder"
+
+[dependency-groups]
+dev = ["pytest>=8", "rich>=13"]
+
+[build-system]
+requires = ["uv_build>=0.12.13,<0.13"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "googlenewsdecoder"
+module-root = ""
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
