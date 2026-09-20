@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  <img src="assets/google_image_decoder.jpg" alt="Google News URL Decoder">
+  <img src="https://raw.githubusercontent.com/SSujitX/google-news-url-decoder/main/assets/google_image_decoder.jpg" alt="Google News URL Decoder">
 </p>
 
 # Google News Decoder
@@ -23,7 +23,7 @@ Use **googlenewsdecoder** to decode a Google News URL, extract the original arti
 
 ## Demo
 
-![Decode a Google News URL to the original article URL](assets/google-news-url-decoder.gif)
+![Decode a Google News URL to the original article URL](https://raw.githubusercontent.com/SSujitX/google-news-url-decoder/main/assets/google-news-url-decoder.gif)
 
 ## How it works
 
