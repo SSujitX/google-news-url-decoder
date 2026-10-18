@@ -2,7 +2,8 @@ import json
 import re
 from urllib.parse import parse_qs, quote, urljoin, urlparse
 
-from selectolax.parser import HTMLParser
+from selectolax.lexbor import LexborHTMLParser
+
 
 _SG = re.compile(r'data-n-a-sg="([^"]+)"')
 _TS = re.compile(r'data-n-a-ts="([^"]+)"')
@@ -87,7 +88,7 @@ def parse_signature(html: str) -> tuple[str, str] | None:
     Returns:
         ``(signature, timestamp)`` or None if those attributes are missing.
     """
-    node = HTMLParser(html).css_first("c-wiz > div[jscontroller]")
+    node = LexborHTMLParser(html).css_first("c-wiz > div[jscontroller]")
     if node is not None:
         sg = node.attributes.get("data-n-a-sg")
         ts = node.attributes.get("data-n-a-ts")
